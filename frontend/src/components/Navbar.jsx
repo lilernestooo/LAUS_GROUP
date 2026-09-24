@@ -144,7 +144,7 @@ function Navbar() {
   }, [isMenuOpen]);
 
   return (
-    <header className="sticky top-0 z-50 font-body">
+    <header className="sticky top-0 z-50 font-body shadow-[0_6px_16px_-4px_rgba(0,0,0,0.35)]">
       {/* Utility bar */}
       <div className={`bg-ink border-b border-white/10 ${isScrolled ? "lg:hidden" : ""}`}>
         <div className="mx-auto flex max-w-7xl items-center justify-between gap-4 px-5 py-2.5 md:px-8">
