@@ -126,8 +126,11 @@ const NAV_LINKS = [
 
 function Navbar() {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
-  const [activeHref, setActiveHref] = useState("/");
+  const [activeHref, setActiveHref] = useState(window.location.pathname);
   const [isScrolled, setIsScrolled] = useState(false);
+
+  const isLinkActive = (href) =>
+    href === "/" ? activeHref === "/" : activeHref === href || activeHref.startsWith(href + "/");
 
   useEffect(() => {
     const handleScroll = () => setIsScrolled(window.scrollY > 4);
@@ -228,11 +231,11 @@ function Navbar() {
                     href={link.href}
                     onClick={() => setActiveHref(link.href)}
                     className={`group relative flex items-center whitespace-nowrap px-6 py-4 font-display text-[0.95rem] font-bold uppercase tracking-wide xl:px-7 ${
-                        activeHref === link.href ? "bg-ember text-white" : "text-steel group-hover/item:text-ember"
+                        isLinkActive(link.href) ? "bg-ember text-white" : "text-steel group-hover/item:text-ember"
                     }`}
                     >
                     {link.label}
-                    {activeHref !== link.href && (
+                    {!isLinkActive(link.href) && (
                         <span className="pointer-events-none absolute inset-x-6 bottom-2 h-0.5 origin-center scale-x-0 bg-ember transition-transform duration-200 ease-out group-hover:scale-x-100 xl:inset-x-7" />
                     )}
                     </a>
@@ -331,9 +334,9 @@ function Navbar() {
               setActiveHref(link.href);
               setIsMenuOpen(false);
             }}
-            className={`border-b border-black/5 px-5 py-3.5 font-display text-base font-bold uppercase tracking-wide ${
-              activeHref === link.href ? "bg-ember text-white" : "text-steel"
-            }`}
+              className={`border-b border-black/5 px-5 py-3.5 font-display text-base font-bold uppercase tracking-wide ${
+                isLinkActive(link.href) ? "bg-ember text-white" : "text-steel"
+              }`}
           >
             {link.label}
           </a>
